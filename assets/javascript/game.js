@@ -11,33 +11,55 @@ var jurassicWords = ["Chromosones", "Velociraptor", "Unix", "Shoot Her!",
 
 var jurassicWords2 = ["testing", "a theory"];
 
+
+
 // game object
-function wordGame(words, lettersGuessed, GuessesRemaining) {
+function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
    
     this.lettersGuessed = lettersGuessed;
     this.GuessesRemaining = GuessesRemaining; 
     this.words = words; 
-    this.selectWord = function (test) {
+    this.selectWord = function () {
         var arrayLength = this.words.length;
        // after getting length of array, selected a random number within that length 
        // comment out line 19 once done debugging. 
        console.log(Math.floor(Math.random() * (arrayLength  + 1)));
        this.selectedWord = this.words[Math.floor(Math.random() * (arrayLength  + 1))]; 
     }
+    this.gameStarted = false; 
+    this.startGame = function () {
+        this.gameStarted = true; 
+    }
+    this.createLetterContainers = function () { 
+        // check if word selected is non-null
+        //determine the length of word selected 
+        //create child divs in the proper container 
+    }
+    this.checkLetter = function () {
+        // read the 
+    }
 }
 
+
+// events? 
+
+var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+
+document.onkeyup = function () {
+    alert("test");
+    if (!Game.gameStarted) {
+        // start the game 
+        Game.startGame();
+    }
+    else {
+        // call the key checking functions 
+    }
+    
+    
+}
 // instantiate the object 
-var game1 = new wordGame(jurassicWords2);
-var game2 = new wordGame(jurassicWords); 
-game1.selectWord(); 
-game2.selectWord(); 
+ 
 
-
-
-
-console.log(game1.selectedWord);
-console.log(game2.selectedWord);
-game2.selectWord()
 
 
 
