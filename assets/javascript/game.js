@@ -28,10 +28,10 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
     this.selectWord = function () {
         // check array length
         var arrayLength = this.words.length; 
-        // select random index from words array, assign to selectedWord property of the object 
-        this.selectedWord = this.words[Math.floor(Math.random() * (arrayLength  + 1))]; 
+        // select random index from words array, assign to selectedWord property of the object
+        var random1 =  Math.floor(Math.random() * (arrayLength)); 
+        this.selectedWord = this.words[random1]; 
         this.selectedWord = this.selectedWord.toUpperCase(); 
-        console.log(this.selectedWord);
         // determine the length of the word of this object, assign to global var wordLen 
     }
     // default value of gameStarted property of object is false 
@@ -110,4 +110,5 @@ document.onkeyup = function (event) {
     }
 
     var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+    console.log(Game); 
 }
