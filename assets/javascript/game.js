@@ -43,7 +43,10 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
     this.createLetterContainers = function () { 
         // check if word selected is greater than 0 
         // create child containers in main container div   
-        
+        for (var i = 0; i<this.selectedWord.length; i++) {
+            var container = document.getElementById("ltrContainer"); 
+            console.log(container); 
+        }
         // create child divs in the proper container 
         // assign a data-* attribute to each letter container, indicating what letter it is
         // technically, user could view source to 'cheat'. But this is unlikely and easier 
@@ -72,6 +75,8 @@ document.onkeyup = function (event) {
     if (!Game.gameStarted) { 
         Game.startGame();
         console.log("Game Started")
+        Game.selectWord(); 
+        Game.createLetterContainers(); 
     }
     else {
         if (event.key.toUpperCase =='A') {
@@ -84,56 +89,12 @@ document.onkeyup = function (event) {
 
 
 //test createdwordfunction scope 
-Game.selectWord(); 
 console.log(wordLen);
 console.log(Game.selectedWord)
-Game.checkLetter(); 
- }
-
-// instantiate the object 
- 
-
-
-
+}
 
 // function definitions 
-
-// function to select a random word from the wordsToGuess array 
- 
-
-// function to 
-
-// function calls 
-
 // call selectWord function to select a random word to play the game with 
-
-
-
-
-
-
-
-// construct "game" object 
-    // Properties: 
-        // Number of Guesses 
-        // Word being guessed 
-        // LettersGuessed 
-        // alphabet 
-    // functions 
-        // Determine number of guesses (pre-game initialize)
-        // Select random word (pre-game initialize)
-        // construct required DOM objects to display word, hidden () - give each an id associated with pos
-        // check if letter being guessed is contained in word, and its position in that word 
-        // where the letter exists, place that letter in the container, does not continue to listen.
-// game started property (boolean)
-// function initGame --> initializes game. Based on any key being pressed. 
-    // function --> select random word 
-    // measure the length of the word 
-    // create necessary number of boxes, uses HTML elements to display the word, based on that word length
-    // ensure the contents of the box are hidden (using CSS selector)
-    // initalize the number of guesses the user gets, probably some function that relates to the length of the word
-
-
 // guesses remaining property
 // letters guessed property
 // function guess letter
