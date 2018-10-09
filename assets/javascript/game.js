@@ -1,5 +1,5 @@
 // define the alphabet 
- window.onload = function mycode (e) {
+window.onload = function mycode (e) {
 
 
 var alphabet = ["A", "B", "C", "D", "E", "F",
@@ -9,8 +9,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F",
 var lettersGuessed = [];
 
 // define different words from the theme Jurassic Park
-var jurassicWords = ["Chromosones", "Velociraptor", "Unix", "Shoot Her!", 
-"Isla Nubla", "InGen", "Animatronics", "Hammond"];
+var jurassicWords = ["Jurassic", "Park"];
 
 var jurassicWords2 = ["testing", "a theory"];
 var wordLen = 0;
@@ -31,8 +30,9 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         var arrayLength = this.words.length; 
         // select random index from words array, assign to selectedWord property of the object 
         this.selectedWord = this.words[Math.floor(Math.random() * (arrayLength  + 1))]; 
+        this.selectedWord = this.selectedWord.toUpperCase(); 
+        console.log(this.selectedWord);
         // determine the length of the word of this object, assign to global var wordLen 
-         
     }
     // default value of gameStarted property of object is false 
     this.gameStarted = false; 
@@ -49,28 +49,22 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
             console.log(wordContainer);
             // create letter holder
             var ltrContainerBorder = document.createElement("div");
-            
             // set the class of that holder to have a border 
-            ltrContainerBorder.className = "col p-4 mx-2 border-bottom border-primary";
+            ltrContainerBorder.className = "col p-0 mx-2 border-bottom border-primary ltrHolder";
             console.log(ltrContainerBorder);
             // place the the letter holder into the word container 
             wordContainer.append(ltrContainerBorder);
             // create the content holder (the actual letter)
-            var ltrDiv = document.createElement("span"); 
-             // set which letter is contained by the span element
-             ltrDiv.setAttribute("data-letter", this.selectedWord[i]);
+            var ltrSpan = document.createElement("span"); 
+            // set class of ltr to the span 
+            ltrSpan.className = "aLtr";
+            // set which letter is contained by the span element
+            
+            
+            ltrSpan.setAttribute("data-letter", this.selectedWord[i]);
             // put those content holders into the letter border holders
-            ltrContainerBorder.append(ltrDiv);
-           
+            ltrContainerBorder.append(ltrSpan);
             // set the content of the ltr holder 
-            
-            
-                 
-              
-            
-            
-            
-            
         }
         // create child divs in the proper container 
         // assign a data-* attribute to each letter container, indicating what letter it is
@@ -78,26 +72,25 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         // than the alternative code required. 
     }
     this.revealLetter = function (userLetter) {
-        // read the input of the user, check if there are matches within the word 
-        // read the content of each data-* attribute and stick in array 
-        // cycle through each data-* attribute. 
-        for (var i = 0; i<this.selectedWord.length; i++) {
-            var letterCheck = this.selectedWord[i];
-            if (letterCheck == userLetter) {
-                // find the divs with the matching data attribute, reveal them.  
+        // select array of ltr holder spans
+        var ltrSpans = document.getElementsByClassName("aLtr");
+        console.log(ltrSpans);
+        // loop through arrays and check each of their data-attribute for a match 
+        for (var i=0; i<ltrSpans.length; i++) {
+            var chkLtr = ltrSpans[i].getAttribute("data-letter"); 
+            if (chkLtr == userLetter) {
+                console.log("match");
+                ltrSpans[i].textContent = chkLtr;
             }
         }
-        console.log(this.selectedWord); 
+
+        }
+        
     }
-}
-
-
-// events? 
-
-
-
+// load a game object 
+var Game = new wordGame(jurassicWords, lettersGuessed, 10);
 document.onkeyup = function (event) {
-    var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+    
     console.log(Game.gameStarted);
     if (Game.gameStarted == false) { 
         Game.startGame();
@@ -107,30 +100,7 @@ document.onkeyup = function (event) {
         Game.createLetterContainers(); 
     }
     else {
-        if (event.key.toUpperCase == 'A') {
-            console.log("Key A Pressed");
+        Game.revealLetter(event.key.toUpperCase());
         }
     }
-    
-    
 }
-
-
-//test createdwordfunction scope 
-
-}
-
-// function definitions 
-// call selectWord function to select a random word to play the game with 
-// guesses remaining property
-// letters guessed property
-// function guess letter
-    // add letter guessed to the lettersGuessed array 
-    // modify somehow the grid of 'guessed' letters in DOM to indicate that the letter has been used. 
-    // Update guesses remaining 
-    // Check if letter guessed is contained in the word (this should ptobably be its own function)
-    // if true, find that letter in the containers and show 
-    // if false, check number of guesses remaining, if >0, do nothing, if =0 end game somehow 
-
-
-
