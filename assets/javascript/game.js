@@ -9,7 +9,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F",
 var lettersGuessed = [];
 
 // define different words from the theme Jurassic Park
-var jurassicWords = ["Jurassic", "Park"];
+var jurassicWords = ["Yass", "Miss"];
 
 var jurassicWords2 = ["testing", "a theory"];
 var wordLen = 0;
@@ -62,6 +62,7 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
             
             
             ltrSpan.setAttribute("data-letter", this.selectedWord[i]);
+            ltrSpan.textContent = this.selectedWord[i];
             // put those content holders into the letter border holders
             ltrContainerBorder.append(ltrSpan);
             // set the content of the ltr holder 
@@ -78,17 +79,21 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         // loop through arrays and check each of their data-attribute for a match 
         for (var i=0; i<ltrSpans.length; i++) {
             var chkLtr = ltrSpans[i].getAttribute("data-letter"); 
+            console.log(ltrSpans[i]);
             if (chkLtr == userLetter) {
                 console.log("match");
-                ltrSpans[i].textContent = chkLtr;
+                ltrSpans[i].classList.add("aLtrShow");
             }
         }
-
+        var newLtrSpans = document.getElementsByClassName("aLtrShow");
+        for (var i=0; i<newLtrSpans.length; i++) {
+            newLtrSpans[i].classList.remove("aLtr");
+        }
         }
         
     }
 // load a game object 
-var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+
 document.onkeyup = function (event) {
     
     console.log(Game.gameStarted);
@@ -103,4 +108,6 @@ document.onkeyup = function (event) {
         Game.revealLetter(event.key.toUpperCase());
         }
     }
+
+    var Game = new wordGame(jurassicWords, lettersGuessed, 10);
 }

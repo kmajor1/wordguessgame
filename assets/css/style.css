@@ -4,7 +4,16 @@
 }
 
 .ltrHolder {
-    height: 20px; 
-    width: 20px; 
-    text-align: center;
+   
+    
+}
+
+.aLtr {
+    visibility: hidden;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.aLtrShow {
+    visibility: visible;
+    font-family: 'Share Tech Mono', monospace;
 }
