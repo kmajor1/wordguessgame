@@ -32,7 +32,7 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         // select random index from words array, assign to selectedWord property of the object 
         this.selectedWord = this.words[Math.floor(Math.random() * (arrayLength  + 1))]; 
         // determine the length of the word of this object, assign to global var wordLen 
-        wordLen = this.selectedWord.length; 
+         
     }
     // default value of gameStarted property of object is false 
     this.gameStarted = false; 
@@ -44,8 +44,15 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         // check if word selected is greater than 0 
         // create child containers in main container div   
         for (var i = 0; i<this.selectedWord.length; i++) {
-            var container = document.getElementById("ltrContainer"); 
-            console.log(container); 
+            var ltrContainer = document.getElementById("ltrContainer"); 
+            console.log("the container is:" + ltrContainer);
+            var ltrDiv = document.createElement("div");
+            var ltrDivContent = document.createTextNode(this.selectedWord[i]);
+            console.log(ltrDivContent);
+            ltrDiv.append(ltrDivContent);       
+            console.log(ltrDiv);    
+            ltrContainer.append(ltrDiv);
+            
         }
         // create child divs in the proper container 
         // assign a data-* attribute to each letter container, indicating what letter it is
@@ -69,17 +76,20 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
 
 // events? 
 
-var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+
 
 document.onkeyup = function (event) {
-    if (!Game.gameStarted) { 
+    var Game = new wordGame(jurassicWords, lettersGuessed, 10);
+    console.log(Game.gameStarted);
+    if (Game.gameStarted == false) { 
         Game.startGame();
-        console.log("Game Started")
+        console.log(Game.gameStarted);
         Game.selectWord(); 
+        console.log(Game.selectedWord);
         Game.createLetterContainers(); 
     }
     else {
-        if (event.key.toUpperCase =='A') {
+        if (event.key.toUpperCase == 'A') {
             console.log("Key A Pressed");
         }
     }
@@ -89,8 +99,7 @@ document.onkeyup = function (event) {
 
 
 //test createdwordfunction scope 
-console.log(wordLen);
-console.log(Game.selectedWord)
+
 }
 
 // function definitions 
