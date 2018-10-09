@@ -50,14 +50,14 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
             // create letter holder
             var ltrContainerBorder = document.createElement("div");
             // set the class of that holder to have a border 
-            ltrContainerBorder.className = "col p-0 mx-2 border-bottom border-primary ltrHolder";
+            ltrContainerBorder.className = "col clearfix p-0 mx-2 border-bottom border-primary ltrHolder";
             console.log(ltrContainerBorder);
             // place the the letter holder into the word container 
             wordContainer.append(ltrContainerBorder);
             // create the content holder (the actual letter)
             var ltrSpan = document.createElement("span"); 
             // set class of ltr to the span 
-            ltrSpan.className = "aLtr";
+            ltrSpan.className = "aLtr pb-5 mb-5";
             // set which letter is contained by the span element
             
             

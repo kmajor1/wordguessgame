@@ -1,12 +1,6 @@
-.wordContainer {
-    width: 100%; 
-    height: 20px; 
-}
 
-.ltrHolder {
-   
-    
-}
+
+
 
 .aLtr {
     visibility: hidden;
@@ -14,6 +8,14 @@
 }
 
 .aLtrShow {
+    position: absolute;
+    bottom: 0; 
+    text-align: center;  
     visibility: visible;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15vw; 
+    max-height: 100%;
+    max-width: 100%; 
+    vertical-align: bottom; 
+    
 }
