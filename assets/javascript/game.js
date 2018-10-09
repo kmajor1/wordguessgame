@@ -44,14 +44,32 @@ function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         // check if word selected is greater than 0 
         // create child containers in main container div   
         for (var i = 0; i<this.selectedWord.length; i++) {
-            var ltrContainer = document.getElementById("ltrContainer"); 
-            console.log("the container is:" + ltrContainer);
-            var ltrDiv = document.createElement("div");
-            var ltrDivContent = document.createTextNode(this.selectedWord[i]);
-            console.log(ltrDivContent);
-            ltrDiv.append(ltrDivContent);       
-            console.log(ltrDiv);    
-            ltrContainer.append(ltrDiv);
+            // select word holder 
+            var wordContainer = document.getElementById("wordContainer");
+            console.log(wordContainer);
+            // create letter holder
+            var ltrContainerBorder = document.createElement("div");
+            
+            // set the class of that holder to have a border 
+            ltrContainerBorder.className = "col p-4 mx-2 border-bottom border-primary";
+            console.log(ltrContainerBorder);
+            // place the the letter holder into the word container 
+            wordContainer.append(ltrContainerBorder);
+            // create the content holder (the actual letter)
+            var ltrDiv = document.createElement("span"); 
+             // set which letter is contained by the span element
+             ltrDiv.setAttribute("data-letter", this.selectedWord[i]);
+            // put those content holders into the letter border holders
+            ltrContainerBorder.append(ltrDiv);
+           
+            // set the content of the ltr holder 
+            
+            
+                 
+              
+            
+            
+            
             
         }
         // create child divs in the proper container 
