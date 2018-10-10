@@ -13,20 +13,26 @@
 <body>
     <div class="container border">
         <div class="row">
-            <div id="instructions" class="d-flex col-6">
+            <div id="instructions" class="d-flex col-3">
                 This is the basic framework of a word guess game. 
                 Instructions: 
                 1. type any key to get started 
                 2. type keys to guess letters, they'll be revealed to you as you guess correctly.
             </div>
-            <div id="game" class="d-flex m-0 p-0 border flex-column col-6">
-                <div id="gameStats" class="p-0 m-0 h-25 d-flex">
-                    game stats here 
+            <div id="game" class="d-flex flex-column m-0 p-0 border col-9">
+                <div id="gameStats" class="clearfix p-0 m-0 border">
+                    <ul class="list-group">
+                        <li class="list-item">Games Won/Lost</li>
+                        <li class="list-item">Guesses Remaining</li>
+                        <li class="list-item"></li>
+                        <li class="list-item"></li>
+                    </ul>
+                    </ul>
                 </div>
-                <div id="wordContainer" class="p-0 m-0 border h-25 d-flex flex-row">
+                <div id="wordContainer" class="clearfix d-flex flex-row h-50 p-0 m-0 border">
                 </div>
-                <div id="lettersGuessed" class="p-0 m-0 border h-25">
-                    letters guessed
+                <div id="lettersGuessed" class="p-2 m-0 border">
+                <h1>Letter Guesses (Click to Guess!)</h1>
                 </div>
         </div>
     </div>
