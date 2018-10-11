@@ -5,13 +5,23 @@ window.onload = function mycode(e) {
     var alphabet = ["A", "B", "C", "D", "E", "F",
         "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
         "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "!"];
+
+    var wins = 0; 
+    var losses = 0; 
+
+    // dashboard update functions 
+    var updateWin = function () {
+        var winBadge = document.getElementById("winBadge"); 
+        winBadge.innerText = wins; 
+    }
+    
     
     // stand-alone function for letters guessed 
     var createLettersGuessedDivs = function () {
         for (var i = 0; i < alphabet.length; i++) {
             varLtrGuessedContainer = document.getElementById("lettersGuessed");
             var newDiv = document.createElement("button");
-            newDiv.className = "btn btn-primary m-1 clearfix";
+            newDiv.className = "btn btn-warning m-1 clearfix";
             newDiv.textContent = alphabet[i];
             varLtrGuessedContainer.append(newDiv);
         }
@@ -19,7 +29,7 @@ window.onload = function mycode(e) {
     createLettersGuessedDivs(); 
 
     // define different words from the theme Jurassic Park
-    var jurassicWords = ["Yass", "Miss"];
+    var jurassicWords = ["Yass", "Miss", "InGen", "Velociraptor", "Chromosones", "Gate", "Jurassic", "Dinosaur", "Hammond", "Jeep"];
     var letterGuessedInit = ["0", "1"];
 
     var Game = new wordGame(jurassicWords, letterGuessedInit, 10, false);
@@ -30,6 +40,8 @@ window.onload = function mycode(e) {
         this.lettersGuessed = lettersGuessed;
         this.GuessesRemaining = GuessesRemaining;
         this.words = words;
+        this.guessLtrIncorrect = guessLtrIncorrect; 
+        this.guessLtrCorrect = guessLtrCorrect; 
         /* 
         The function selectWord accesses the words passed to the object when instantiated
         It determines length of the array, and selects a random index. 
@@ -48,6 +60,10 @@ window.onload = function mycode(e) {
         // method that can be invoked on object to start game 
         this.startGame = function () {
             this.gameStarted = true;
+            var clearWordContainer = document.getElementById("wordContainer"); 
+            clearWordContainer.textContent = ''; 
+            this.guessLtrCorrect = 0; 
+            this.guessLtrIncorrect = 0; 
         }
         // method to create the neccessary containers for the letters in
         // chosen word 
@@ -91,14 +107,50 @@ window.onload = function mycode(e) {
                 console.log(ltrSpans[i]);
                 if (chkLtr == userLetter) {
                     console.log("match");
+                    this.guessLtrCorrect++;
                     ltrSpans[i].classList.add("aLtrShow");
                     ltrSpans[i].classList.add("align-bottom");
+                }
+                else {
+                    guessLtrIncorrect++; 
                 }
             }
             var newLtrSpans = document.getElementsByClassName("aLtrShow");
             for (var i = 0; i < newLtrSpans.length; i++) {
                 newLtrSpans[i].classList.remove("aLtr");
             }
+            // get number of unique letters in selected word 
+            var aLtrSpans = document.getElementsByClassName("aLtr");
+            console.log(aLtrSpans.length);
+            if (aLtrSpans.length == 0) {
+                //call winGame
+                this.WinGame(); 
+            }
+        }
+        this.WinGame = function () {
+            wins++; 
+            console.log("wins:" + wins);
+            // clear divs from wordContainer, access word container
+            var divWinSpace = document.getElementById("lettersGuessed"); 
+            var newGameBtn = document.createElement("button"); 
+            newGameBtn.classList.add('btn', 'btn-success');
+            newGameBtn.innerText = "You Won! Click here to Play Again!";
+            var buttonBreak = document.createElement("br"); 
+            divWinSpace.innerHTML = ''; 
+            divWinSpace.classList.add('justify-content-center', 'd-flex'); 
+            divWinSpace.append(buttonBreak);
+            divWinSpace.append(newGameBtn); 
+            updateWin();
+            
+            // divsToRemove.innerHTML = '' 
+            // divsToRemove.innerHTML = '<div>  <h1 id="wordWon"></h1><br> <p>Way to Go, you won!</p> <br><button id="newGameBtn" class="btn btn-success"><h1>New Game</h1></button></div>'
+            // var wordWon = document.getElementById("wordWon"); 
+            // wordWon.textContent = this.selectedWord; 
+            // divsToRemove.classList.add("justify-content-center");
+            // divsToRemove.classList.add("p-2"); 
+
+            // create big div with the word that they guessed and a button too 
+
         }
 
     }

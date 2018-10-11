@@ -1,4 +1,16 @@
+body {
+    background-color: black; 
 
+}
+
+p {
+    color: white; 
+}
+
+h1, h2 {
+    color: white;     
+    font-family: 'Share Tech Mono', monospace; 
+}
 
 .ltrHolder {
     vertical-align: bottom;
@@ -12,6 +24,7 @@
 .aLtr {
     visibility: hidden;
     font-family: 'Share Tech Mono', monospace;
+
 }
 
 .aLtrShow {
@@ -20,8 +33,18 @@
     /* text-align: center;   */
     visibility: visible;
     font-family: 'Share Tech Mono', monospace; 
-    font-size: 20pt; 
+    font-size: 2rem; 
     vertical-align: bottom;  
+    color: white; 
+    font-weight: bold; 
     /* border-bottom-width: 15px; */
     
+}
+
+#gameDash li {
+    background-color: black; 
+}
+
+#labelRem {
+    font-size: 10rem; 
 }

@@ -1,40 +1,47 @@
 <!doctype <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Word Guess Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
     <script src="./assets/javascript/game.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 </head>
+
 <body>
+    <nav>
+        test
+    </nav>
     <div class="container border">
         <div class="row">
             <div id="instructions" class="d-flex col-3">
-                This is the basic framework of a word guess game. 
-                Instructions: 
-                1. type any key to get started 
-                2. type keys to guess letters, they'll be revealed to you as you guess correctly.
+                <p> This is the basic framework of a word guess game.
+                    Instructions:
+                    1. type any key to get started
+                    2. type keys to guess letters, they'll be revealed to you as you guess correctly.
+                </p>
             </div>
             <div id="game" class="d-flex flex-column m-0 p-0 border col-9">
                 <div id="gameStats" class="clearfix p-0 m-0 border">
-                    <ul class="list-group">
-                        <li class="list-item">Games Won/Lost</li>
-                        <li class="list-item">Guesses Remaining</li>
-                        <li class="list-item"></li>
-                        <li class="list-item"></li>
-                    </ul>
+                    <ul id="gameDash" class="d-flex flex-row list-group">
+                        <li class="list-group-item flex-fill  m-0 p-1"><h2>Games Won <span id="winBadge" class="badge badge-pill badge-success">0</span></h2></li>
+                        <li class="list-group-item flex-fill  m-0 p-1"><h2>Games Lost <span id="lostBadge" class="badge badge-pill badge-danger">2</span></h2></li>
+                        <li class="list-group-item flex-fill  m-0 p-1"><h2>Guesses Remaining <span id="guessRem" class="badge badge-pill badge-warning">4</span></h2></li>
+                            
                     </ul>
                 </div>
                 <div id="wordContainer" class="clearfix d-flex flex-row h-50 p-0 m-0 border">
                 </div>
                 <div id="lettersGuessed" class="p-2 m-0 border">
-                <h1>Letter Guesses (Click to Guess!)</h1>
+                    <h1>Letter Guesses (Click to Guess!)</h1>
                 </div>
+            </div>
         </div>
-    </div>
 </body>
+
 </html>
