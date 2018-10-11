@@ -40,7 +40,6 @@ window.onload = function mycode(e) {
         else {
             Game.LoseGame();
         }
-       
 
     }
 
@@ -48,7 +47,8 @@ window.onload = function mycode(e) {
     console.log(Game);
 
     // define game object
-    function wordGame(words, lettersGuessed, Guesses, guessesRem, gameStarted) {
+    function wordGame(words, lettersGuessed, Guesses, guessesRem, endState) {
+        
         this.lettersGuessed = lettersGuessed;
         this.Guesses = function (string) {
             // get the string with only unique characters, then count 
@@ -167,6 +167,7 @@ window.onload = function mycode(e) {
             divWinSpace.append(newGameBtnWin);
             var winBadge = document.getElementById("winBadge");
             winBadge.innerText = wins;
+            this.endState = true; 
         }
 
         this.LoseGame = function () {
@@ -174,12 +175,18 @@ window.onload = function mycode(e) {
             console.log("wins:" + wins);
             // clear divs from wordContainer, access word container
             var divLossSpace = document.getElementById("lettersGuessed");
-
+            this.endState = true; 
             divLossSpace.innerHTML = '';
             divLossSpace.classList.add('justify-content-center', 'd-flex');
             divLossSpace.append(newGameBtnLoss);
             var LossBadge = document.getElementById("lossBadge");
             LossBadge.innerText = losses;
+            // reveal the letters of the word 
+            var revealUnguessedLetters = document.getElementsByClassName("aLtr");
+            revealUnguessedLetters.classList.add("aLtrShow");
+            revealUnguessedLetters.classList.remove("aLtr");
+
+            
             // when game is lost, the letter divs remaining empty, and other functions 
             // logic will allow user to keep entering letters 
             // learning moment: would have, on 2nd approach, done the checking
@@ -187,6 +194,7 @@ window.onload = function mycode(e) {
             // letters versus storing or maintaing the unique letters in string and whether they'd
             // all been guessed 
         }
+    
 
 
     }
@@ -199,6 +207,9 @@ window.onload = function mycode(e) {
             Game.selectWord();
             console.log(Game.selectedWord);
             Game.createLetterContainers();
+        }
+        else if  (Game.endState == true) {
+            // do nothing
         }
         else {
             // check that letter in alphabet, add to letters guessed 
@@ -224,6 +235,7 @@ window.onload = function mycode(e) {
         var lettersGuessedDiv = document.getElementById("lettersGuessed");
         lettersGuessedDiv.innerHTML = '';
         Game.lettersGuessed = ["0", "1"];
+        Game.endState = false; 
     }
 
     newGameBtnLoss.onclick = function () {
@@ -234,6 +246,7 @@ window.onload = function mycode(e) {
         var lettersGuessedDiv = document.getElementById("lettersGuessed");
         lettersGuessedDiv.innerHTML = '';
         Game.lettersGuessed = ["0", "1"];
+        Game.endState = false; 
     }
 }
 
