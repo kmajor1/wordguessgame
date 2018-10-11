@@ -6,31 +6,28 @@ window.onload = function mycode(e) {
         "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
         "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "!"];
 
-    var wins = 0; 
-    var losses = 0; 
-
-    // dashboard update functions 
-    var updateWin = function () {
-        var winBadge = document.getElementById("winBadge"); 
-        winBadge.innerText = wins; 
-    }
-    
-    
-    // stand-alone function for letters guessed 
-    var createLettersGuessedDivs = function () {
-        for (var i = 0; i < alphabet.length; i++) {
-            varLtrGuessedContainer = document.getElementById("lettersGuessed");
-            var newDiv = document.createElement("button");
-            newDiv.className = "btn btn-warning m-1 clearfix";
-            newDiv.textContent = alphabet[i];
-            varLtrGuessedContainer.append(newDiv);
-        }
-    }
-    createLettersGuessedDivs(); 
-
-    // define different words from the theme Jurassic Park
-    var jurassicWords = ["Yass", "Miss", "InGen", "Velociraptor", "Chromosones", "Gate", "Jurassic", "Dinosaur", "Hammond", "Jeep"];
+        // define different words from the theme Jurassic Park
+    var jurassicWords = ["yyuu"];
     var letterGuessedInit = ["0", "1"];
+
+    var wins = 0;
+    var losses = 0;
+
+    var newGameBtn = document.createElement("button");
+    newGameBtn.setAttribute("id", "newGameBtn");
+    newGameBtn.classList.add("btn", "btn-success", "hide");
+    newGameBtn.innerText = "You Won! Click Here for a New Game";
+
+    // stand-alone function for letters guessed 
+    var createLettersGuessedDivs = function (userLetter) {
+        var ltrGuessedContainer = document.getElementById("lettersGuessed");
+        ltrGuessedContainer.className = 'p-2 m-0 border'; 
+            var newBtn = document.createElement("button");
+            newBtn.className = "btn btn-warning m-1 clearfix";
+            newBtn.textContent = userLetter;
+            ltrGuessedContainer.append(newBtn);
+        
+    }
 
     var Game = new wordGame(jurassicWords, letterGuessedInit, 10, false);
     console.log(Game);
@@ -38,10 +35,10 @@ window.onload = function mycode(e) {
     // define game object
     function wordGame(words, lettersGuessed, GuessesRemaining, gameStarted) {
         this.lettersGuessed = lettersGuessed;
-        this.GuessesRemaining = GuessesRemaining;
+        this.GuessesRemaining = function () {
+            this.selectedWord.length 
+        }
         this.words = words;
-        this.guessLtrIncorrect = guessLtrIncorrect; 
-        this.guessLtrCorrect = guessLtrCorrect; 
         /* 
         The function selectWord accesses the words passed to the object when instantiated
         It determines length of the array, and selects a random index. 
@@ -60,10 +57,10 @@ window.onload = function mycode(e) {
         // method that can be invoked on object to start game 
         this.startGame = function () {
             this.gameStarted = true;
-            var clearWordContainer = document.getElementById("wordContainer"); 
-            clearWordContainer.textContent = ''; 
-            this.guessLtrCorrect = 0; 
-            this.guessLtrIncorrect = 0; 
+            var clearWordContainer = document.getElementById("wordContainer");
+            clearWordContainer.textContent = '';
+            this.guessLtrCorrect = 0;
+            this.guessLtrIncorrect = 0;
         }
         // method to create the neccessary containers for the letters in
         // chosen word 
@@ -111,9 +108,6 @@ window.onload = function mycode(e) {
                     ltrSpans[i].classList.add("aLtrShow");
                     ltrSpans[i].classList.add("align-bottom");
                 }
-                else {
-                    guessLtrIncorrect++; 
-                }
             }
             var newLtrSpans = document.getElementsByClassName("aLtrShow");
             for (var i = 0; i < newLtrSpans.length; i++) {
@@ -124,34 +118,22 @@ window.onload = function mycode(e) {
             console.log(aLtrSpans.length);
             if (aLtrSpans.length == 0) {
                 //call winGame
-                this.WinGame(); 
+                this.WinGame();
             }
         }
         this.WinGame = function () {
-            wins++; 
+            wins++;
             console.log("wins:" + wins);
             // clear divs from wordContainer, access word container
-            var divWinSpace = document.getElementById("lettersGuessed"); 
-            var newGameBtn = document.createElement("button"); 
-            newGameBtn.classList.add('btn', 'btn-success');
-            newGameBtn.innerText = "You Won! Click here to Play Again!";
-            var buttonBreak = document.createElement("br"); 
-            divWinSpace.innerHTML = ''; 
-            divWinSpace.classList.add('justify-content-center', 'd-flex'); 
-            divWinSpace.append(buttonBreak);
-            divWinSpace.append(newGameBtn); 
-            updateWin();
+            var divWinSpace = document.getElementById("lettersGuessed");
             
-            // divsToRemove.innerHTML = '' 
-            // divsToRemove.innerHTML = '<div>  <h1 id="wordWon"></h1><br> <p>Way to Go, you won!</p> <br><button id="newGameBtn" class="btn btn-success"><h1>New Game</h1></button></div>'
-            // var wordWon = document.getElementById("wordWon"); 
-            // wordWon.textContent = this.selectedWord; 
-            // divsToRemove.classList.add("justify-content-center");
-            // divsToRemove.classList.add("p-2"); 
-
-            // create big div with the word that they guessed and a button too 
-
+            divWinSpace.innerHTML = '';
+            divWinSpace.classList.add('justify-content-center', 'd-flex');
+            divWinSpace.append(newGameBtn);
+            var winBadge = document.getElementById("winBadge");
+            winBadge.innerText = wins;
         }
+
 
     }
     // defined on key up event 
@@ -167,9 +149,10 @@ window.onload = function mycode(e) {
         else {
             // check that letter in alphabet, add to letters guessed 
             if (Game.lettersGuessed.includes(event.key.toUpperCase())) {
-                alert("already guessed that letter!");
+                console.log("guessed");
             }
             else if (alphabet.includes(event.key.toUpperCase())) {
+                createLettersGuessedDivs(event.key.toUpperCase());
                 // call func to evaluate letter 
                 Game.evalLetter(event.key.toUpperCase());
                 // add to letters guessed 
@@ -178,5 +161,15 @@ window.onload = function mycode(e) {
             }
         }
     }
+    // event listener for new game button 
+newGameBtn.onclick =  function () {
+        Game.selectWord(); 
+        var wordContainerDiv = document.getElementById("wordContainer");
+        wordContainerDiv.innerHTML = ''; 
+        Game.createLetterContainers(); 
+        var lettersGuessedDiv = document.getElementById("lettersGuessed");
+        lettersGuessedDiv.innerHTML = '';  
+        Game.lettersGuessed = ["0", "1"];
+    } 
 }
 
