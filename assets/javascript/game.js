@@ -7,7 +7,7 @@ window.onload = function mycode(e) {
         "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "!"];
 
     // define different words from the theme Jurassic Park
-    var jurassicWords = ["Jurassic", "Velociraptor", "Dinosaur", "Spielberg", "Triceratops", "Amber"];
+    var jurassicWords = ["Paleontologist","Lawyers","Helicopter","BlockBuster","Dern","Jeep","Cloning","Goldblum","Mosquito","Tyrannosaurus","Crichton", "Jurassic", "Velociraptor", "Dinosaur", "Spielberg", "Triceratops", "Amber"];
     var letterGuessedInit = ["0", "1"];
 
     var wins = 0;
