@@ -7,7 +7,7 @@ window.onload = function mycode(e) {
         "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "!"];
 
     // define different words from the theme Jurassic Park
-    var jurassicWords = ["yyuu"];
+    var jurassicWords = ["Jurassic", "Velociraptor", "Dinosaur", "Spielberg", "Triceratops", "Amber"];
     var letterGuessedInit = ["0", "1"];
 
     var wins = 0;
@@ -33,41 +33,47 @@ window.onload = function mycode(e) {
         newBtn.textContent = userLetter;
         ltrGuessedContainer.append(newBtn);
         var guessRemBadge = document.getElementById("guessRem");
+        Game.guessesRem--; 
         if (Game.guessesRem >=1) {
-            Game.guessesRem--; 
+            
             guessRemBadge.textContent = Game.guessesRem;
         }
         else {
+            guessRemBadge.textContent = Game.guessesRem;
             Game.LoseGame();
         }
 
     }
 
     var Game = new wordGame(jurassicWords, letterGuessedInit, 0, false);
-    console.log(Game);
+    
 
     // define game object
-    function wordGame(words, lettersGuessed, Guesses, guessesRem, endState) {
+    function wordGame(words, lettersGuessed, guessesRem, endState) {
         
         this.lettersGuessed = lettersGuessed;
         this.Guesses = function (string) {
             // get the string with only unique characters, then count 
             // assists in setting reasonable number of guesses  
-            var unique = '';
-            var count = 0;
-            for (var i = 0; i < string.length; i++) {
-                for (var j = i + 1; j < string.length; j++) {
-                    if (string[i] == string[j]) {
-                        count++;
-                        unique += string[i];
+            // THIS DID NOT WORK. 
+            // var unique = '';
+            // var count = 0;
+            // for (var i = 0; i < string.length; i++) {
+            //     for (var j = i + 1; j < string.length; j++) {
+            //         if (string[i] == string[j]) {
+            //             count++;
+            //             unique += string[i];
 
-                    }
-                }
+            //         }
+            //     }
 
 
-            }
-            this.guessesRem = Math.floor((unique.length + ((alphabet.length - unique.length) * .25)));
-
+            // }
+            
+            this.guessesRem = this.selectedWord.length + 5;
+            console.log(this);
+           
+            
             var guessRemBadge = document.getElementById("guessRem");
             guessRemBadge.textContent = this.guessesRem;
         }
@@ -105,12 +111,11 @@ window.onload = function mycode(e) {
             for (var i = 0; i < this.selectedWord.length; i++) {
                 // select word holder 
                 var wordContainer = document.getElementById("wordContainer");
-                console.log(wordContainer);
+                
                 // create letter holder
                 var ltrContainerBorder = document.createElement("div");
                 // set the class of that holder to have a border 
                 ltrContainerBorder.className = "col d-flex justify-content-center p-0 mx-2 ltrHolder";
-                console.log(ltrContainerBorder);
                 // place the the letter holder into the word container 
                 wordContainer.append(ltrContainerBorder);
                 // create the content holder (the actual letter)
@@ -132,14 +137,11 @@ window.onload = function mycode(e) {
         this.evalLetter = function (userLetter) {
             // select array of ltr holder spans
             var ltrSpans = document.getElementsByClassName("aLtr");
-
-            console.log(ltrSpans);
             // loop through arrays and check each of their data-attribute for a match 
             for (var i = 0; i < ltrSpans.length; i++) {
                 var chkLtr = ltrSpans[i].getAttribute("data-letter");
-                console.log(ltrSpans[i]);
+                
                 if (chkLtr == userLetter) {
-                    console.log("match");
                     ltrSpans[i].classList.add("aLtrShow");
                     ltrSpans[i].classList.add("align-bottom");
                 }
@@ -148,17 +150,17 @@ window.onload = function mycode(e) {
             for (var i = 0; i < newLtrSpans.length; i++) {
                 newLtrSpans[i].classList.remove("aLtr");
             }
-            // get number of unique letters in selected word 
-            var aLtrSpans = document.getElementsByClassName("aLtr");
-            console.log(aLtrSpans.length);
-            if (aLtrSpans.length == 0) {
+            // check if all letters are revealed
+            // if they are, player has won 
+            var aLtrShowSpans = document.getElementsByClassName("aLtrShow");
+            if (aLtrShowSpans.length == this.selectedWord.length) {
                 //call winGame
                 this.WinGame();
             }
         }
         this.WinGame = function () {
             wins++;
-            console.log("wins:" + wins);
+           
             // clear divs from wordContainer, access word container
             var divWinSpace = document.getElementById("lettersGuessed");
 
@@ -172,7 +174,6 @@ window.onload = function mycode(e) {
 
         this.LoseGame = function () {
             losses++;
-            console.log("wins:" + wins);
             // clear divs from wordContainer, access word container
             var divLossSpace = document.getElementById("lettersGuessed");
             this.endState = true; 
@@ -181,10 +182,14 @@ window.onload = function mycode(e) {
             divLossSpace.append(newGameBtnLoss);
             var LossBadge = document.getElementById("lossBadge");
             LossBadge.innerText = losses;
-            // reveal the letters of the word 
-            var revealUnguessedLetters = document.getElementsByClassName("aLtr");
-            revealUnguessedLetters.classList.add("aLtrShow");
-            revealUnguessedLetters.classList.remove("aLtr");
+            // reveal the letters of the word (this broke, couldn't get it to work)
+            // var unguessedLetters = document.getElementsByClassName("aLtr");
+            // console.log(unguessedLetters);
+            // for (var i = 0; i<unguessedLetters.length; i++) {
+               
+            //     unguessedLetters[i].classList.add("aLtrShow");
+            // }
+            
 
             
             // when game is lost, the letter divs remaining empty, and other functions 
@@ -200,12 +205,9 @@ window.onload = function mycode(e) {
     }
     // defined on key up event 
     document.onkeyup = function (event) {
-        console.log(Game.gameStarted);
         if (Game.gameStarted == false) {
             Game.startGame();
-            console.log(Game.gameStarted);
             Game.selectWord();
-            console.log(Game.selectedWord);
             Game.createLetterContainers();
         }
         else if  (Game.endState == true) {
@@ -214,7 +216,7 @@ window.onload = function mycode(e) {
         else {
             // check that letter in alphabet, add to letters guessed 
             if (Game.lettersGuessed.includes(event.key.toUpperCase())) {
-                console.log("guessed");
+                // do nothing
             }
             else if (alphabet.includes(event.key.toUpperCase())) {
                 createLettersGuessedDivs(event.key.toUpperCase());
@@ -222,7 +224,7 @@ window.onload = function mycode(e) {
                 Game.evalLetter(event.key.toUpperCase());
                 // add to letters guessed 
                 Game.lettersGuessed.push(event.key.toUpperCase());
-                console.log(lettersGuessed);
+                
             }
         }
     }
