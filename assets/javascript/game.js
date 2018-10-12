@@ -27,7 +27,7 @@ window.onload = function mycode(e) {
     // stand-alone function for letters guessed badges 
     var createLettersGuessedDivs = function (userLetter) {
         var ltrGuessedContainer = document.getElementById("lettersGuessed");
-        ltrGuessedContainer.className = 'p-2 m-0 border';
+        ltrGuessedContainer.className = 'p-2 m-0';
         var newBtn = document.createElement("button");
         newBtn.className = "btn btn-warning m-1 clearfix";
         newBtn.textContent = userLetter;
