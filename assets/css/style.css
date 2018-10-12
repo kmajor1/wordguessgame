@@ -5,6 +5,7 @@ body {
 
 p {
     color: white; 
+    font-family: 'Share Tech Mono', monospace; 
 }
 
 h1, h2, h3 {
