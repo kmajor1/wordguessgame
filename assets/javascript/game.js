@@ -45,16 +45,14 @@ window.onload = function mycode(e) {
 
     }
 
-    var Game = new wordGame(jurassicWords, letterGuessedInit, 0, false);
-    
-
     // define game object
+
     function wordGame(words, lettersGuessed, guessesRem, endState) {
-        
         this.lettersGuessed = lettersGuessed;
         this.Guesses = function (string) {
             // get the string with only unique characters, then count 
             // assists in setting reasonable number of guesses  
+           
             // THIS DID NOT WORK. 
             // var unique = '';
             // var count = 0;
@@ -66,18 +64,12 @@ window.onload = function mycode(e) {
 
             //         }
             //     }
-
-
             // }
-            
             this.guessesRem = this.selectedWord.length + 5;
             console.log(this);
-           
-            
             var guessRemBadge = document.getElementById("guessRem");
             guessRemBadge.textContent = this.guessesRem;
         }
-
 
         this.words = words;
         /* 
@@ -101,11 +93,9 @@ window.onload = function mycode(e) {
             this.gameStarted = true;
             var clearWordContainer = document.getElementById("wordContainer");
             clearWordContainer.textContent = '';
-
         }
-        // method to create the neccessary containers for the letters in
-        // chosen word 
-        this.createLetterContainers = function () {
+
+        this.createLetterContainers = function () { // create the holders for the chosen word 
             // check if word selected is greater than 0 
             // create child containers in main container div   
             for (var i = 0; i < this.selectedWord.length; i++) {
@@ -134,7 +124,9 @@ window.onload = function mycode(e) {
             // technically, user could view source to 'cheat'. But this is unlikely and easier 
             // than the alternative code required. 
         }
-        this.evalLetter = function (userLetter) {
+
+        
+        this.evalLetter = function (userLetter) { // evaluates the letter pressed by user
             // select array of ltr holder spans
             var ltrSpans = document.getElementsByClassName("aLtr");
             // loop through arrays and check each of their data-attribute for a match 
@@ -158,12 +150,12 @@ window.onload = function mycode(e) {
                 this.WinGame();
             }
         }
+        
+        // Updates win badge, clears content and preps screen for new game 
         this.WinGame = function () {
             wins++;
-           
             // clear divs from wordContainer, access word container
             var divWinSpace = document.getElementById("lettersGuessed");
-
             divWinSpace.innerHTML = '';
             divWinSpace.classList.add('justify-content-center', 'd-flex');
             divWinSpace.append(newGameBtnWin);
@@ -171,7 +163,8 @@ window.onload = function mycode(e) {
             winBadge.innerText = wins;
             this.endState = true; 
         }
-
+        
+        // Updates loss badge, clears content and preps screen for new game 
         this.LoseGame = function () {
             losses++;
             // clear divs from wordContainer, access word container
@@ -186,23 +179,14 @@ window.onload = function mycode(e) {
             // var unguessedLetters = document.getElementsByClassName("aLtr");
             // console.log(unguessedLetters);
             // for (var i = 0; i<unguessedLetters.length; i++) {
-               
             //     unguessedLetters[i].classList.add("aLtrShow");
             // }
-            
-
-            
-            // when game is lost, the letter divs remaining empty, and other functions 
-            // logic will allow user to keep entering letters 
-            // learning moment: would have, on 2nd approach, done the checking
-            // for whether the user has won differently - did it based on revealed 
-            // letters versus storing or maintaing the unique letters in string and whether they'd
-            // all been guessed 
         }
     
-
-
     }
+
+    var Game = new wordGame(jurassicWords, letterGuessedInit, 0, false); // load game object
+
     // defined on key up event 
     document.onkeyup = function (event) {
         if (Game.gameStarted == false) {
@@ -210,21 +194,22 @@ window.onload = function mycode(e) {
             Game.selectWord();
             Game.createLetterContainers();
         }
+        // stops execution if the game is waiting for user to start new game. 
         else if  (Game.endState == true) {
             // do nothing
         }
         else {
-            // check that letter in alphabet, add to letters guessed 
+            // If the user has already guessed the letter, do nothing 
             if (Game.lettersGuessed.includes(event.key.toUpperCase())) {
                 // do nothing
             }
+            // otherwise, check that letter in alphabet and if so, evaluate it 
             else if (alphabet.includes(event.key.toUpperCase())) {
                 createLettersGuessedDivs(event.key.toUpperCase());
                 // call func to evaluate letter 
                 Game.evalLetter(event.key.toUpperCase());
                 // add to letters guessed 
                 Game.lettersGuessed.push(event.key.toUpperCase());
-                
             }
         }
     }
@@ -240,6 +225,7 @@ window.onload = function mycode(e) {
         Game.endState = false; 
     }
 
+    // event listener for new game, when lost game 
     newGameBtnLoss.onclick = function () {
         Game.selectWord();
         var wordContainerDiv = document.getElementById("wordContainer");
